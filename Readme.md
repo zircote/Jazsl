@@ -11,38 +11,38 @@ It provides access to API methods:
 * Add to pear.zircote.com
 * Add Zend_Tool_Provider
 
-* _Cluster Manger Methods_
-  * clusterAddServer
-    * @returns `Jazsl_Service_Response_ServerInfo`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-  * clusterRemoveServer
-    * @returns `Jazsl_Service_Response_ServerInfo`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-  * clusterDisableServer
-    * @returns `Jazsl_Service_Response_ServerInfo`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-  * clusterEnableServer
-    * @returns `Jazsl_Service_Response_ServerInfo`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-  * clusterGetServerStatus
-    * @returns `Jazsl_Service_Response_ServersList`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-* _Generic Server Methods_
-  * getSystemInfo
-    * @returns `Jazsl_Service_Response_ServerInfo`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-  * restartPhp
-    * @returns `Jazsl_Service_Response_ServersList`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-* _Configuration Method_
-  * configurationExport
-    * @returns `string $filename`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
-  * configurationImport
-    * @returns `Jazsl_Service_Response_ServersList`
-    * Error @returns `Jazsl_Service_Response_ErrorData`
+### Cluster Manger Methods
+* clusterAddServer
+  * @returns `Jazsl_Service_Response_ServerInfo`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+* clusterRemoveServer
+  * @returns `Jazsl_Service_Response_ServerInfo`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+* clusterDisableServer
+  * @returns `Jazsl_Service_Response_ServerInfo`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+* clusterEnableServer
+  * @returns `Jazsl_Service_Response_ServerInfo`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+* clusterGetServerStatus
+  * @returns `Jazsl_Service_Response_ServersList`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+### Generic Server Methods
+* getSystemInfo
+  * @returns `Jazsl_Service_Response_ServerInfo`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+* restartPhp
+  * @returns `Jazsl_Service_Response_ServersList`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+### Configuration Method
+* configurationExport
+  * @returns `string $filename`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
+* configurationImport
+  * @returns `Jazsl_Service_Response_ServersList`
+  * Error @returns `Jazsl_Service_Response_ErrorData`
   
-= Use Examples
+# Use Examples
 
 ## clusterAddServer
 
