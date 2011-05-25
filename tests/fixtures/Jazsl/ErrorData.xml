@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zendServerAPIResponse xmlns="http://www.zend.com/server/api/1.0">
+    <requestData>
+        <apiKeyName><![CDATA[APITESTRO]]></apiKeyName>
+        <method><![CDATA[clusterDisableServer]]></method>
+    </requestData>
+    <errorData>
+        <errorCode>insufficientAccessLevel</errorCode>
+        <errorMessage><![CDATA[Supplied Api-Key does not have the necessary permissions required to perform this action]]></errorMessage>
+    </errorData>
+</zendServerAPIResponse>
