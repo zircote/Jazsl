@@ -27,6 +27,7 @@ It provides access to API methods:
 * clusterGetServerStatus
   * @returns `Jazsl_Service_Response_ServersList`
   * Error @returns `Jazsl_Service_Response_ErrorData`
+
 ### Generic Server Methods
 * getSystemInfo
   * @returns `Jazsl_Service_Response_ServerInfo`
@@ -34,6 +35,7 @@ It provides access to API methods:
 * restartPhp
   * @returns `Jazsl_Service_Response_ServersList`
   * Error @returns `Jazsl_Service_Response_ErrorData`
+
 ### Configuration Method
 * configurationExport
   * @returns `string $filename`
@@ -79,9 +81,9 @@ $auth->setApiKey('SomeApiKeyValue')
 $addServer = new Jazsl_Service_Cluster_RemoveServer(
     'http://localhost:10081/ZendServerManager'
 );
-/* set required param: serverID */ 
+/* set required param: serverId */ 
 
-$serverInfo = $addServer->setServerID(3) //required
+$serverInfo = $addServer->setServerId(3) //required
     ->request($auth);
 /**
  * @returns Jazsl_Service_Response_ServerInfo on Success
@@ -100,9 +102,9 @@ $auth->setApiKey('SomeApiKeyValue')
 $addServer = new Jazsl_Service_Cluster_DisableServer(
     'http://localhost:10081/ZendServerManager'
 );
-/* set required param: serverID */ 
+/* set required param: serverId */ 
 
-$serverInfo = $addServer->setServerID(3) //required
+$serverInfo = $addServer->setServerId(3) //required
     ->request($auth);
 /**
  * @returns Jazsl_Service_Response_ServerInfo on Success
@@ -121,9 +123,9 @@ $auth->setApiKey('SomeApiKeyValue')
 $addServer = new Jazsl_Service_Cluster_EnableServer(
     'http://localhost:10081/ZendServerManager'
 );
-/* set required param: serverID */ 
+/* set required param: serverId */ 
 
-$serverInfo = $addServer->setServerID(3) //required
+$serverInfo = $addServer->setServerId(3) //required
     ->request($auth);
 /**
  * @returns Jazsl_Service_Response_ServerInfo on Success

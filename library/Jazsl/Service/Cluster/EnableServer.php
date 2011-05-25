@@ -15,7 +15,7 @@ class Jazsl_Service_Cluster_EnableServer extends Jazsl_Service_RequestAbstract
      *
      * @var int
      */
-    protected $_serverID;
+    protected $_serverId;
     /**
      *
      * @var Zend_Http_Client
@@ -25,9 +25,10 @@ class Jazsl_Service_Cluster_EnableServer extends Jazsl_Service_RequestAbstract
      *
      * @param array $servers
      */
-    public function setServer ($server)
+    public function setServerId ($serverId)
     {
-        $this->_serverID = $server;
+        $this->_serverId = $serverId;
+        return $this;
     }
     /**
      *
@@ -36,10 +37,10 @@ class Jazsl_Service_Cluster_EnableServer extends Jazsl_Service_RequestAbstract
     public function request (Jazsl_Service_Auth $auth)
     {
         $auth->signRequest($this->_httpClient);
-        if (null === $this->_serverID) {
-            throw new Exception('serverID must be set');
+        if (null === $this->_serverId) {
+            throw new Exception('serverId must be set');
         }
-        $this->_httpClient->setParameterPost('serverID', $this->_serverID);
+        $this->_httpClient->setParameterPost('serverId', $this->_serverId);
         $this->_response = $this->_httpClient->request(Zend_Http_Client::POST);
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServerInfo(

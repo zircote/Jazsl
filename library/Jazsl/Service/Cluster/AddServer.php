@@ -29,22 +29,19 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
     public function request (Jazsl_Service_Auth $auth)
     {
         $auth->signRequest($this->_httpClient);
-        if (null === $this->_serverID) {
-            throw new Exception('serverID must be set');
-        }
-        if (! $this->_serverName) {
+        if (! $this->getServerName()) {
             throw new Exception('serverName must be set');
         }
         $this->_httpClient->setParameterPost(
             'serverName', $this->getServerName()
         );
-        if (! $this->_serverUrl) {
+        if (! $this->getServerUrl()) {
             throw new Exception('serverUrl must be set');
         }
         $this->_httpClient->setParameterPost(
-            'serverURL', $this->getServerUrl()
+            'serverUrl', $this->getServerUrl()
         );
-        if (! $this->_guiPassword) {
+        if (! $this->getGuiPassword()) {
             throw new Exception('guiPassword must be set');
         }
         $this->_httpClient->setParameterPost(
