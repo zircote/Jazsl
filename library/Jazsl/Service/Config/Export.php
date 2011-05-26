@@ -8,11 +8,6 @@ class Jazsl_Service_Config_Export extends Jazsl_Service_RequestAbstract
 {
     /**
      *
-     * @var Zend_Http_Response
-     */
-    protected $_response;
-    /**
-     *
      * @var string
      */
     protected $_httpPath = '/Api/configurationExport';
@@ -21,11 +16,6 @@ class Jazsl_Service_Config_Export extends Jazsl_Service_RequestAbstract
      * @var string
      */
     protected $_filename;
-    /**
-     *
-     * @var Zend_Http_Client
-     */
-    protected $_httpClient;
     /**
      *
      * @param array $servers
@@ -42,8 +32,11 @@ class Jazsl_Service_Config_Export extends Jazsl_Service_RequestAbstract
     {
         $pattern = '/[^attachment;filename="]([A-Za-z0-9\.-]+)/';
         $auth->signRequest($this->_httpClient);
-        $this->_httpClient->setStream();
-        $this->_response = $this->_httpClient->request(Zend_Http_Client::GET);
+        $this->getHttpClient()->setStream();
+        $this->_setHeaders();
+        $this->_response = $this->getHttpClient()->request(
+            Zend_Http_Client::GET
+        );
         if (300 > $this->_response->getStatus()) {
             preg_match(
                 $pattern,

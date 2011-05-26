@@ -3,11 +3,6 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
 {
     /**
      *
-     * @var Zend_Http_Response
-     */
-    protected $_response;
-    /**
-     *
      * @var string
      */
     protected $_httpPath = '/ZendServerManager/Api/clusterAddServer';
@@ -19,35 +14,31 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
     protected $_doRestart = self::PARAM_FALSE;
     /**
      *
-     * @var Zend_Http_Client
-     */
-    protected $_httpClient;
-    /**
-     *
      * @param Jazsl_Service_Auth $auth
      */
     public function request (Jazsl_Service_Auth $auth)
     {
-        $auth->signRequest($this->_httpClient);
+        $auth->signRequest($this->getHttpClient());
         if (! $this->getServerName()) {
             throw new Exception('serverName must be set');
         }
-        $this->_httpClient->setParameterPost(
+        $this->getHttpClient()->setParameterPost(
             'serverName', $this->getServerName()
         );
         if (! $this->getServerUrl()) {
             throw new Exception('serverUrl must be set');
         }
-        $this->_httpClient->setParameterPost(
+        $this->getHttpClient()->setParameterPost(
             'serverUrl', $this->getServerUrl()
         );
         if (! $this->getGuiPassword()) {
             throw new Exception('guiPassword must be set');
         }
-        $this->_httpClient->setParameterPost(
+        $this->getHttpClient()->setParameterPost(
             'guiPassword', $this->getGuiPassword()
         );
-        $this->_response = $this->_httpClient->request(Zend_Http_Client::POST);
+        $this->_setHeaders();
+        $this->_response = $this->getHttpClient()->request(Zend_Http_Client::POST);
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServerInfo(
                 $this->_response->getBody()
@@ -137,18 +128,7 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
      */
     public function setPropagateSettings ($_propagateSettings)
     {
-        if (
-            $_propagateSettings == true ||
-            strtolower($_propagateSettings) == self::PARAM_TRUE
-        ) {
-            $this->_propagateSettings = self::PARAM_TRUE;
-        }
-        if (
-            $_propagateSettings == false ||
-            strtolower($_propagateSettings) == self::PARAM_FALSE
-        ) {
-            $this->_propagateSettings = self::PARAM_FALSE;
-        }
+        $this->_propagateSettings = $this->_convertBool($_propagateSettings);
         return $this;
     }
 
@@ -158,16 +138,7 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
      */
     public function setDoRestart ($_doRestart)
     {
-        if (
-            $_doRestart == true || strtolower($_doRestart) == self::PARAM_TRUE
-        ) {
-            $this->_doRestart = self::PARAM_TRUE;
-        }
-        if (
-            $_doRestart == false || strtolower($_doRestart) == self::PARAM_FALSE
-        ) {
-            $this->_doRestart = self::PARAM_FALSE;
-        }
+        $this->_doRestart = $this->_convertBool($_doRestart);
         return $this;
     }
 

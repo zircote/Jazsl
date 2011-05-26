@@ -9,11 +9,6 @@ extends Jazsl_Service_RequestAbstract
 {
     /**
      *
-     * @var Zend_Http_Response
-     */
-    protected $_response;
-    /**
-     *
      * @var string
      */
     protected $_httpPath = '/ZendServerManager/Api/clusterGetServerStatus';
@@ -21,19 +16,14 @@ extends Jazsl_Service_RequestAbstract
      *
      * @var array|null
      */
-    protected $_params;
-    /**
-     *
-     * @var Zend_Http_Client
-     */
-    protected $_httpClient;
+    protected $_servers;
     /**
      *
      * @param array $servers
      */
     public function setServers (array $servers)
     {
-        $this->_params['servers'] = $servers;
+        $this->_servers = $servers;
     }
     /**
      *
@@ -41,11 +31,14 @@ extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
-        $auth->signRequest($this->_httpClient);
-        $this->_httpClient->setParameterGet(
-            'servers', $this->_params['servers']
-        );
-        $this->_response = $this->_httpClient->request();
+        $auth->signRequest($this->getHttpClient());
+        if (null !== $this->_servers) {
+            $this->getHttpClient()->setParameterGet(
+                'servers', $this->_servers
+            );
+        }
+        $this->_setHeaders();
+        $this->_response = $this->getHttpClient()->request();
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServersList(
                 $this->_response->getBody()

@@ -8,41 +8,23 @@ class Jazsl_Service_RequestAbstract
      * @var Zend_Http_Client
      */
     protected $_httpClient;
-    protected $_httpSchema = 'https';
-    protected $_httpPort = '10082';
-    protected $_httpPath;
     const USER_AGENT = 'JAZSL/0.1.0';
     const API_ACCEPT = 'application/vnd.zend.serverapi+xml;version=1.0';
     const PARAM_FALSE = 'false';
     const PARAM_TRUE = 'true';
     protected $_timeout = 60;
+    protected $_httpPath;
     /**
-     * @return the $_httpClient
+     *
+     * @var Zend_Http_Response
+     */
+    protected $_response;
+    /**
+     * @return Zend_Http_Client
      */
     public function getHttpClient ()
     {
         return $this->_httpClient;
-    }
-    /**
-     * @return the $_httpSchema
-     */
-    public function getHttpSchema ()
-    {
-        return $this->_httpSchema;
-    }
-    /**
-     * @return the $_httpPort
-     */
-    public function getHttpPort ()
-    {
-        return $this->_httpPort;
-    }
-    /**
-     * @return the $_httpPath
-     */
-    public function getHttpPath ()
-    {
-        return $this->_httpPath;
     }
     /**
      * @return the $_timeout
@@ -50,6 +32,9 @@ class Jazsl_Service_RequestAbstract
     public function getTimeout ()
     {
         return $this->_timeout;
+    }
+    public function getHttpPath(){
+        return $this->_httpPath;
     }
     /**
      * @todo add support for Zend_Uri as a parameter
@@ -62,11 +47,23 @@ class Jazsl_Service_RequestAbstract
         }
         $uri = Zend_Uri_Http::fromString($zendServer);
         $uri->setPath($this->_httpPath);
-        $this->_httpClient = new Zend_Http_Client(
-            $uri->getUri(),
-            array('timeout' => $this->_timeout,
-            'Content-type' => 'application/x-www-form-urlencoded')
-        );
-        $this->_httpClient->setHeaders('User-Agent', self::USER_AGENT);
+        $this->_httpClient = new Zend_Http_Client($uri->getUri());
+    }
+
+    protected function _setHeaders(){
+        $this->getHttpClient()->setHeaders('timeout', $this->getTimeout());
+        $this->getHttpClient()->setHeaders('Content-type', 'application/x-www-form-urlencoded');
+        $this->getHttpClient()->setHeaders('User-Agent', self::USER_AGENT);
+    }
+
+    protected function _convertBool($value)
+    {
+        if( ! is_bool($value)){
+            $value = strtolower($value);
+        }
+        if ( $value == true || $valus == self::PARAM_TRUE ) {
+            return self::PARAM_TRUE;
+        }
+        return self::PARAM_FALSE;
     }
 }

@@ -3,11 +3,6 @@ class Jazsl_Service_Server_RestartPhp extends Jazsl_Service_RequestAbstract
 {
     /**
      *
-     * @var Zend_Http_Response
-     */
-    protected $_response;
-    /**
-     *
      * @var string
      */
     protected $_httpPath = '/ZendServerManager/Api/restartPhp';
@@ -20,12 +15,7 @@ class Jazsl_Service_Server_RestartPhp extends Jazsl_Service_RequestAbstract
      *
      * @var bool
      */
-    protected $_parallelRestart = 'false';
-    /**
-     *
-     * @var Zend_Http_Client
-     */
-    protected $_httpClient;
+    protected $_parallelRestart = self::PARAM_FALSE;
     /**
      * @return the $_parallelRestart
      */
@@ -39,10 +29,7 @@ class Jazsl_Service_Server_RestartPhp extends Jazsl_Service_RequestAbstract
      */
     public function setParallelRestart ($parallelRestart = false)
     {
-        if (! is_bool($parallelRestart)) {
-            $parallelRestart = false;
-        }
-        $this->_parallelRestart = $parallelRestart;
+        $this->_parallelRestart = $this->_convertBool($parallelRestart);
         return $this;
     }
     /**
@@ -51,7 +38,7 @@ class Jazsl_Service_Server_RestartPhp extends Jazsl_Service_RequestAbstract
      */
     public function setServers (array $servers)
     {
-        $this->_servers['servers'] = $servers;
+        $this->_servers = $servers;
     }
     /**
      *
@@ -59,16 +46,17 @@ class Jazsl_Service_Server_RestartPhp extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
-        $auth->signRequest($this->_httpClient);
+        $auth->signRequest($this->getHttpClient());
         if (null !== $this->_servers) {
-            $this->_httpClient->setParameterPost(
-                'servers', $this->_servers['servers']
+            $this->getHttpClient()->setParameterPost(
+                'servers', $this->_servers
             );
         }
-        $this->_httpClient->setParameterPost(
+        $this->getHttpClient()->setParameterPost(
             'parallelRestart', $this->getParallelRestart()
         );
-        $this->_response = $this->_httpClient->request('POST');
+        $this->_setHeaders();
+        $this->_response = $this->getHttpClient()->request('POST');
         if ('300' > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServersList(
                 $this->_response->getBody()

@@ -8,11 +8,6 @@ class Jazsl_Service_Config_Import extends Jazsl_Service_RequestAbstract
 {
     /**
      *
-     * @var Zend_Http_Response
-     */
-    protected $_response;
-    /**
-     *
      * @var string
      */
     protected $_httpPath = '/ZendServerManager/Api/configurationImport';
@@ -26,11 +21,6 @@ class Jazsl_Service_Config_Import extends Jazsl_Service_RequestAbstract
      * @var string 'false'|'true'
      */
     protected $_ignoreSystemMismatch = self::PARAM_FALSE;
-    /**
-     *
-     * @var Zend_Http_Client
-     */
-    protected $_httpClient;
 
     /**
      *
@@ -49,10 +39,11 @@ class Jazsl_Service_Config_Import extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
-        $auth->signRequest($this->_httpClient);
+        $auth->signRequest($this->getHttpClient());
         $fp = fopen($this->_filename, "r");
         $this->_httpClient->setFileUpload($this->_filename, 'configFile');
-        $this->_response = $this->_httpClient
+        $this->_setHeaders();
+        $this->_response = $this->getHttpClient()
             ->request('POST');
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServersList(

@@ -3,11 +3,6 @@ class Jazsl_Service_Cluster_DisableServer extends Jazsl_Service_RequestAbstract
 {
     /**
      *
-     * @var Zend_Http_Response
-     */
-    protected $_response;
-    /**
-     *
      * @var string
      */
     protected $_httpPath = '/ZendServerManager/Api/clusterDisableServer';
@@ -16,11 +11,6 @@ class Jazsl_Service_Cluster_DisableServer extends Jazsl_Service_RequestAbstract
      * @var int
      */
     protected $_serverId;
-    /**
-     *
-     * @var Zend_Http_Client
-     */
-    protected $_httpClient;
     /**
      *
      * @param array $servers
@@ -36,12 +26,15 @@ class Jazsl_Service_Cluster_DisableServer extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
-        $auth->signRequest($this->_httpClient);
+        $auth->signRequest($this->getHttpClient());
         if (null === $this->_serverId) {
             throw new Exception('serverId must be set');
         }
-        $this->_httpClient->setParameterPost('serverId', $this->_serverId);
-        $this->_response = $this->_httpClient->request(Zend_Http_Client::POST);
+        $this->getHttpClient()->setParameterPost('serverId', $this->_serverId);
+        $this->_setHeaders();
+        $this->_response = $this->getHttpClient()->request(
+            Zend_Http_Client::POST
+        );
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServerInfo(
                 $this->_response->getBody()
