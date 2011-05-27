@@ -1,11 +1,16 @@
 <?php
+/**
+ *
+ * @author zircote
+ *
+ */
 class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
 {
     /**
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/clusterAddServer';
+    protected $_httpPath = '/Api/clusterAddServer';
 
     protected $_serverName;
     protected $_serverUrl;
@@ -38,7 +43,9 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
             'guiPassword', $this->getGuiPassword()
         );
         $this->_setHeaders();
-        $this->_response = $this->getHttpClient()->request(Zend_Http_Client::POST);
+        $this->_response = $this->getHttpClient()->request(
+            Zend_Http_Client::POST
+        );
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServerInfo(
                 $this->_response->getBody()

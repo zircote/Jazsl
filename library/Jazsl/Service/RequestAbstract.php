@@ -40,13 +40,13 @@ class Jazsl_Service_RequestAbstract
      * @todo add support for Zend_Uri as a parameter
      * @param string $zendServer
      */
-    public function __construct ($zendServer = 'https://localhost:10082')
+    public function __construct ($zendServer = 'https://localhost:10082/ZendServerManager')
     {
         if (is_string($zendServer) && (! Zend_Uri_Http::check($zendServer))) {
             throw new Exception('invalid uri');
         }
         $uri = Zend_Uri_Http::fromString($zendServer);
-        $uri->setPath($this->_httpPath);
+        $uri->setPath($uri->getPath() . $this->getHttpPath());
         $this->_httpClient = new Zend_Http_Client($uri->getUri());
     }
 
@@ -61,7 +61,7 @@ class Jazsl_Service_RequestAbstract
         if( ! is_bool($value)){
             $value = strtolower($value);
         }
-        if ( $value == true || $valus == self::PARAM_TRUE ) {
+        if ( $value == true || $value == self::PARAM_TRUE ) {
             return self::PARAM_TRUE;
         }
         return self::PARAM_FALSE;

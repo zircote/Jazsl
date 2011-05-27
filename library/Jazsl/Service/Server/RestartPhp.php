@@ -5,7 +5,7 @@ class Jazsl_Service_Server_RestartPhp extends Jazsl_Service_RequestAbstract
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/restartPhp';
+    protected $_httpPath = '/Api/restartPhp';
     /**
      *
      * @var array|null

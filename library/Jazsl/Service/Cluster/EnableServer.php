@@ -10,7 +10,7 @@ class Jazsl_Service_Cluster_EnableServer extends Jazsl_Service_RequestAbstract
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/clusterEnableServer';
+    protected $_httpPath = '/Api/clusterEnableServer';
     /**
      *
      * @var int

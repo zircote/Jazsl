@@ -10,7 +10,7 @@ class Jazsl_Service_Config_Import extends Jazsl_Service_RequestAbstract
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/configurationImport';
+    protected $_httpPath = '/Api/configurationImport';
     /**
      *
      * @var string

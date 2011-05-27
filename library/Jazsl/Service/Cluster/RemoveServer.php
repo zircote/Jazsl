@@ -5,7 +5,7 @@ class Jazsl_Service_Cluster_RemoveServer extends Jazsl_Service_RequestAbstract
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/clusterRemoveServer';
+    protected $_httpPath = '/Api/clusterRemoveServer';
     /**
      *
      * @var int

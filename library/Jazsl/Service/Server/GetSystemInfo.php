@@ -5,7 +5,7 @@ class Jazsl_Service_Server_GetSystemInfo extends Jazsl_Service_RequestAbstract
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/getSystemInfo';
+    protected $_httpPath = '/Api/getSystemInfo';
     /**
      *
      * @var int

@@ -11,7 +11,7 @@ extends Jazsl_Service_RequestAbstract
      *
      * @var string
      */
-    protected $_httpPath = '/ZendServerManager/Api/clusterGetServerStatus';
+    protected $_httpPath = '/Api/clusterGetServerStatus';
     /**
      *
      * @var array|null
