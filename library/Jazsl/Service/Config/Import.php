@@ -39,10 +39,10 @@ class Jazsl_Service_Config_Import extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
+        $this->_setHeaders();
         $auth->signRequest($this->getHttpClient());
         $fp = fopen($this->_filename, "r");
         $this->_httpClient->setFileUpload($this->_filename, 'configFile');
-        $this->_setHeaders();
         $this->_response = $this->getHttpClient()
             ->request('POST');
         if (300 > $this->_response->getStatus()) {

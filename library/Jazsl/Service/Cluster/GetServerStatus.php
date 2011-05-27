@@ -31,13 +31,13 @@ extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
+        $this->_setHeaders();
         $auth->signRequest($this->getHttpClient());
         if (null !== $this->_servers) {
             $this->getHttpClient()->setParameterGet(
                 'servers', $this->_servers
             );
         }
-        $this->_setHeaders();
         $this->_response = $this->getHttpClient()->request();
         if (300 > $this->_response->getStatus()) {
             return new Jazsl_Service_Response_ServersList(

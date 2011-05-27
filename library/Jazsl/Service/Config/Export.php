@@ -30,10 +30,10 @@ class Jazsl_Service_Config_Export extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
+        $this->_setHeaders();
         $pattern = '/[^attachment;filename="]([A-Za-z0-9\.-]+)/';
         $auth->signRequest($this->_httpClient);
         $this->getHttpClient()->setStream();
-        $this->_setHeaders();
         $this->_response = $this->getHttpClient()->request(
             Zend_Http_Client::GET
         );

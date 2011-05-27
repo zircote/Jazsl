@@ -23,6 +23,7 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
      */
     public function request (Jazsl_Service_Auth $auth)
     {
+        $this->_setHeaders();
         $auth->signRequest($this->getHttpClient());
         if (! $this->getServerName()) {
             throw new Exception('serverName must be set');
@@ -42,7 +43,6 @@ class Jazsl_Service_Cluster_AddServer extends Jazsl_Service_RequestAbstract
         $this->getHttpClient()->setParameterPost(
             'guiPassword', $this->getGuiPassword()
         );
-        $this->_setHeaders();
         $this->_response = $this->getHttpClient()->request(
             Zend_Http_Client::POST
         );
