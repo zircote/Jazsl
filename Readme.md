@@ -13,36 +13,36 @@ It provides access to API methods:
 
 ### Cluster Manger Methods
 * clusterAddServer
-  * @returns `Jazsl_Service_Response_ServerInfo`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServerInfo`
+  * Error @returns `Jazsl_Response_ErrorData`
 * clusterRemoveServer
-  * @returns `Jazsl_Service_Response_ServerInfo`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServerInfo`
+  * Error @returns `Jazsl_Response_ErrorData`
 * clusterDisableServer
-  * @returns `Jazsl_Service_Response_ServerInfo`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServerInfo`
+  * Error @returns `Jazsl_Response_ErrorData`
 * clusterEnableServer
-  * @returns `Jazsl_Service_Response_ServerInfo`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServerInfo`
+  * Error @returns `Jazsl_Response_ErrorData`
 * clusterGetServerStatus
-  * @returns `Jazsl_Service_Response_ServersList`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServersList`
+  * Error @returns `Jazsl_Response_ErrorData`
 
 ### Generic Server Methods
 * getSystemInfo
-  * @returns `Jazsl_Service_Response_ServerInfo`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServerInfo`
+  * Error @returns `Jazsl_Response_ErrorData`
 * restartPhp
-  * @returns `Jazsl_Service_Response_ServersList`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServersList`
+  * Error @returns `Jazsl_Response_ErrorData`
 
 ### Configuration Method
 * configurationExport
   * @returns `string $filename`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * Error @returns `Jazsl_Response_ErrorData`
 * configurationImport
-  * @returns `Jazsl_Service_Response_ServersList`
-  * Error @returns `Jazsl_Service_Response_ErrorData`
+  * @returns `Jazsl_Response_ServersList`
+  * Error @returns `Jazsl_Response_ErrorData`
   
 # Use Examples
 
@@ -50,11 +50,11 @@ It provides access to API methods:
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Cluster_AddServer(
+$addServer = new Jazsl_Cluster_AddServer(
     'http://localhost:10081/ZendServerManager'
 );
 /* set required params: serverUrl, serverName and guiPassword */ 
@@ -66,19 +66,19 @@ $serverInfo = $addServer->setServerName('www-05') // required
     ->setPropagateSettings('false') // defaults to false
     ->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServerInfo on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServerInfo on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
 ```
 ## clusterRemoveServer
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Cluster_RemoveServer(
+$addServer = new Jazsl_Cluster_RemoveServer(
     'http://localhost:10081/ZendServerManager'
 );
 /* set required param: serverId */ 
@@ -86,8 +86,8 @@ $addServer = new Jazsl_Service_Cluster_RemoveServer(
 $serverInfo = $addServer->setServerId(3) //required
     ->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServerInfo on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServerInfo on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
 ```
 
@@ -95,11 +95,11 @@ $serverInfo = $addServer->setServerId(3) //required
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Cluster_DisableServer(
+$addServer = new Jazsl_Cluster_DisableServer(
     'http://localhost:10081/ZendServerManager'
 );
 /* set required param: serverId */ 
@@ -107,8 +107,8 @@ $addServer = new Jazsl_Service_Cluster_DisableServer(
 $serverInfo = $addServer->setServerId(3) //required
     ->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServerInfo on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServerInfo on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
 ```
 
@@ -116,11 +116,11 @@ $serverInfo = $addServer->setServerId(3) //required
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Cluster_EnableServer(
+$addServer = new Jazsl_Cluster_EnableServer(
     'http://localhost:10081/ZendServerManager'
 );
 /* set required param: serverId */ 
@@ -128,8 +128,8 @@ $addServer = new Jazsl_Service_Cluster_EnableServer(
 $serverInfo = $addServer->setServerId(3) //required
     ->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServerInfo on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServerInfo on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
  
 ```
@@ -138,18 +138,18 @@ $serverInfo = $addServer->setServerId(3) //required
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Cluster_GetServerStatus(
+$addServer = new Jazsl_Cluster_GetServerStatus(
     'http://localhost:10081/ZendServerManager'
 );
 
 $serverInfo = $addServer->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServersList on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServersList on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
  
 ```
@@ -157,18 +157,18 @@ $serverInfo = $addServer->request($auth);
 ## restartPhp
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Server_RestartPhp(
+$addServer = new Jazsl_Server_RestartPhp(
     'http://localhost:10081/ZendServerManager'
 );
 
 $serverInfo = $addServer->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServersList on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServersList on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
  
 ```
@@ -177,18 +177,18 @@ $serverInfo = $addServer->request($auth);
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Server_GetServerInfo(
+$addServer = new Jazsl_Server_GetServerInfo(
     'http://localhost:10081/ZendServer'
 );
 
 $serverInfo = $addServer->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServerInfo on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServerInfo on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
  
 ```
@@ -197,11 +197,11 @@ $serverInfo = $addServer->request($auth);
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Config_Export(
+$addServer = new Jazsl_Config_Export(
     'http://localhost:10081/ZendServer'
 );
 
@@ -210,7 +210,7 @@ $serverInfo = $addServer
     ->request($auth);
 /**
  * @returns string $filename on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @return Jazsl_Response_ErrorData on Error
  */
  
 ```
@@ -219,11 +219,11 @@ $serverInfo = $addServer
 
 ```php
 <?php
-$auth = new Jazsl_Service_Auth();
+$auth = new Jazsl_Auth();
 /* assign the api credentials */
 $auth->setApiKey('SomeApiKeyValue')
     ->setApiName('SomeApiKeyName');
-$addServer = new Jazsl_Service_Config_Export(
+$addServer = new Jazsl_Config_Export(
     'http://localhost:10081/ZendServer'
 );
 
@@ -232,8 +232,8 @@ $serverInfo = $addServer
     ->setIgnoreSystemMismatch('false')
     ->request($auth);
 /**
- * @returns Jazsl_Service_Response_ServersList on Success
- * @return Jazsl_Service_Response_ErrorData on Error
+ * @returns Jazsl_Response_ServersList on Success
+ * @return Jazsl_Response_ErrorData on Error
  */
  
 ```
