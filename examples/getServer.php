@@ -10,13 +10,7 @@ defined('ZSCM_RO_API_KEY')  ? null: define(
 defined('DEFAULT_ZSCM_URI') ? null: define(
     'DEFAULT_ZSCM_URI','https://localhost:10082/ZendServerManager'
 );
-set_include_path(
-    implode(
-        PATH_SEPARATOR, array(
-        realpath(dirname(__FILE__) . '/../library'),
-        get_include_path())
-    )
-);
+
 require_once 'Zend/Loader/Autoloader.php';
 $loader = Zend_Loader_Autoloader::getInstance();
 $loader->registerNamespace(array('Jazsl_'));
