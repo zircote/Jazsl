@@ -54,17 +54,26 @@ Zend_Tool_Framework_Provider_Pretendable
         return $Jazsl_Auth;
     }
 
-    public function getServers()
+    /**
+     *
+     * Enter description here ...
+     * @return Jazsl_Response_ServersList
+     */
+    protected function _getServerStatus()
     {
         $Jazsl_Cluster_GetServerStatus = new Jazsl_Cluster_GetServerStatus(
             $this->_getConfig()->zcsm
         );
-        $serversList = $Jazsl_Cluster_GetServerStatus->request($this->_getJazslAuth());
+        return  $Jazsl_Cluster_GetServerStatus->request($this->_getJazslAuth());
+    }
+    public function getServers()
+    {
+        ob_start();
         $servers = array();
         /* @var Jazsl_Response_ServerInfo $server */
+        $serversList = $this->_getServerStatus();
         if($serversList instanceof Jazsl_Response_ServersList){
             foreach ($serversList->getServersList() as $server) {
-                print_r($server);
                 /* @var $uri Zend_Uri_Http */
                 $uri = $server->getAddress(true);
                 $servers[] = $uri->getHost();
@@ -74,21 +83,21 @@ Zend_Tool_Framework_Provider_Pretendable
             /* @var $serversList Jazsl_Response_ErrorData */
             $json = '/* ' . $serversList->getErrorMessage() . ' */';
         }
+        ob_clean();
         echo $json;
+        exit;
     }
     public function getServer()
     {
-        $Jazsl_Cluster_GetServerStatus = new Jazsl_Cluster_GetServerStatus(
-            $this->_getConfig()->zcsm
-        );
-        $serversList = $Jazsl_Cluster_GetServerStatus->request($this->_getJazslAuth());
+        ob_start();
+        $serversList = $this->_getServerStatus();
         $servers = array();
         /* @var Jazsl_Response_ServerInfo $server */
         if($serversList instanceof Jazsl_Response_ServersList){
             foreach ($serversList->getServersList() as $server) {
                 /* @var $uri Zend_Uri_Http */
                 $uri = $server->getAddress(true);
-                $servers = $uri->getHost();
+                $servers[] = $uri->getHost();
                 break;
             }
             $json = Zend_Json::encode($servers);
@@ -97,7 +106,49 @@ Zend_Tool_Framework_Provider_Pretendable
             $json = '/* ' . $serversList->getErrorMessage() . ' */';
         }
         echo $json;
+        ob_clean();
+        echo $json;
+        exit;
     }
 
+    public function clusterStatus()
+    {
+        ob_start();
+        $serversList = $this->_getServerStatus();
+        $servers = array();
+        $table = new Zend_Text_Table(
+            array('columnWidths' => array(10, 7, 12,60))
+        );
+        $table->appendRow(
+            array('Server ID','Status','Instance-ID','URI')
+        );
+        /* @var Jazsl_Response_ServerInfo $server */
+        if($serversList instanceof Jazsl_Response_ServersList){
+            foreach ($serversList->getServersList() as $server) {
+                /* @var $uri Zend_Uri_Http */
+                $uri = $server->getAddress(true);
+                $table->appendRow(
+                    array(
+                        $server->getId(),
+                        $server->getStatus(),
+                        $server->getName(),
+                        (string)$uri->getHost()
+                    )
+                );
+            }
+        } else {
+            /* @var $serversList Jazsl_Response_ErrorData */
+            $this->_registry->getResponse()
+                ->appendContent(
+                    $serversList->getErrorMessage(), array('color' => 'red')
+                );
+        }
+        $this->_registry->getResponse()->appendContent(
+            'Cluster Members:', array('color' => 'cyan')
+        );
+        $this->_registry->getResponse()->appendContent(
+            (string)$table, array('color' => 'green')
+        );
+    }
 
 }
