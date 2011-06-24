@@ -30,49 +30,49 @@ require_once 'Zend/Tool/Framework/Provider/Pretendable.php';
  * zf ? jazsl
  * </code>
  */
-class Jazsl_Tool_JazslProvider extends Zend_Tool_Project_Provider_Abstract implements
-Zend_Tool_Framework_Provider_Pretendable
+class Jazsl_Tool_JazslProvider extends Zend_Tool_Project_Provider_Abstract
+implements Zend_Tool_Framework_Provider_Pretendable
 {
     /**
      *
      * @var Zend_Config
      */
     protected $_config;
-    public function initialize()
+    public function initialize ()
     {
         $loader = Zend_Loader_Autoloader::getInstance();
         $loader->registerNamespace(array('Jazsl_'));
     }
-    private function _getConfig()
+    private function _getConfig ()
     {
         return $this->_registry->getConfig()->jazsl;
     }
-    protected function _getJazslAuth()
+    protected function _getJazslAuth ()
     {
-        $Jazsl_Auth = new Jazsl_Auth();
-        $Jazsl_Auth->setApiKey($this->_getConfig()->apikey)->setApiName($this->_getConfig()->keyname);
-        return $Jazsl_Auth;
+        $jazslAuth = new Jazsl_Auth();
+        $jazslAuth->setApiKey($this->_getConfig()->apikey)
+            ->setApiName($this->_getConfig()->keyname);
+        return $jazslAuth;
     }
-
     /**
      *
      * Enter description here ...
      * @return Jazsl_Response_ServersList
      */
-    protected function _getServerStatus()
+    protected function _getServerStatus ()
     {
-        $Jazsl_Cluster_GetServerStatus = new Jazsl_Cluster_GetServerStatus(
+        $jazslClusterGetServerStatus = new Jazsl_Cluster_GetServerStatus(
             $this->_getConfig()->zcsm
         );
-        return  $Jazsl_Cluster_GetServerStatus->request($this->_getJazslAuth());
+        return $jazslClusterGetServerStatus->request($this->_getJazslAuth());
     }
-    public function getServers()
+    public function getServers ()
     {
         ob_start();
         $servers = array();
         /* @var Jazsl_Response_ServerInfo $server */
         $serversList = $this->_getServerStatus();
-        if($serversList instanceof Jazsl_Response_ServersList){
+        if ($serversList instanceof Jazsl_Response_ServersList) {
             foreach ($serversList->getServersList() as $server) {
                 /* @var $uri Zend_Uri_Http */
                 $uri = $server->getAddress(true);
@@ -85,15 +85,15 @@ Zend_Tool_Framework_Provider_Pretendable
         }
         ob_clean();
         echo $json;
-        exit;
+        exit();
     }
-    public function getServer()
+    public function getServer ()
     {
         ob_start();
         $serversList = $this->_getServerStatus();
         $servers = array();
         /* @var Jazsl_Response_ServerInfo $server */
-        if($serversList instanceof Jazsl_Response_ServersList){
+        if ($serversList instanceof Jazsl_Response_ServersList) {
             foreach ($serversList->getServersList() as $server) {
                 /* @var $uri Zend_Uri_Http */
                 $uri = $server->getAddress(true);
@@ -108,59 +108,50 @@ Zend_Tool_Framework_Provider_Pretendable
         echo $json;
         ob_clean();
         echo $json;
-        exit;
+        exit();
     }
-
-    public function clusterStatus()
+    public function clusterStatus ()
     {
         ob_start();
         $serversList = $this->_getServerStatus();
         $this->_getServerListTable($serversList);
     }
-
-    protected function _getServerListTable($serversList)
+    protected function _getServerListTable ($serversList)
     {
         $servers = array();
         $table = new Zend_Text_Table(
-            array('columnWidths' => array(10, 15, 15,60))
+            array('columnWidths' => array(10, 15, 15, 60))
         );
-        $table->appendRow(
-            array('Server ID','Status','Instance-Name','URI')
-        );
+        $table->appendRow(array('Server ID', 'Status', 'Instance-Name', 'URI'));
         /* @var Jazsl_Response_ServerInfo $server */
-        if($serversList instanceof Jazsl_Response_ServersList){
+        if ($serversList instanceof Jazsl_Response_ServersList) {
             foreach ($serversList->getServersList() as $server) {
                 /* @var $uri Zend_Uri_Http */
                 $uri = $server->getAddress(true);
                 $table->appendRow(
-                    array(
-                        $server->getId(),
-                        $server->getStatus(),
-                        $server->getName(),
-                        (string)$uri->getHost()
-                    )
+                    array($server->getId(), $server->getStatus(),
+                    $server->getName(), (string) $uri->getHost())
                 );
             }
         } else {
             /* @var $serversList Jazsl_Response_ErrorData */
-            $this->_registry->getResponse()
-                ->appendContent(
-                    $serversList->getErrorMessage(), array('color' => 'red')
-                );
+            $this->_registry->getResponse()->appendContent(
+                $serversList->getErrorMessage(), array('color' => 'red')
+            );
         }
         $this->_registry->getResponse()->appendContent(
             'Cluster Members:', array('color' => 'cyan')
         );
         $this->_registry->getResponse()->appendContent(
-            (string)$table, array('color' => 'green')
+            (string) $table, array('color' => 'green')
         );
     }
-    public function restartPhp($serverID = null, $parallelRestart = false)
+    public function restartPhp ($serverID = null, $parallelRestart = false)
     {
         $restart = new Jazsl_Server_RestartPhp($this->_getConfig()->zcsm);
-        if($serverID){
+        if ($serverID) {
             $restart->setServers(array($serverID));
-        } elseif($parallelRestart){
+        } elseif ($parallelRestart) {
             $restart->setParallelRestart(true);
         }
         $serversList = $restart->request($this->_getJazslAuth());
