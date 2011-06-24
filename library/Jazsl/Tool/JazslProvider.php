@@ -115,12 +115,17 @@ Zend_Tool_Framework_Provider_Pretendable
     {
         ob_start();
         $serversList = $this->_getServerStatus();
+        $this->_getServerListTable($serversList);
+    }
+
+    protected function _getServerListTable($serversList)
+    {
         $servers = array();
         $table = new Zend_Text_Table(
-            array('columnWidths' => array(10, 7, 12,60))
+            array('columnWidths' => array(10, 15, 15,60))
         );
         $table->appendRow(
-            array('Server ID','Status','Instance-ID','URI')
+            array('Server ID','Status','Instance-Name','URI')
         );
         /* @var Jazsl_Response_ServerInfo $server */
         if($serversList instanceof Jazsl_Response_ServersList){
@@ -150,5 +155,15 @@ Zend_Tool_Framework_Provider_Pretendable
             (string)$table, array('color' => 'green')
         );
     }
-
+    public function restartPhp($serverID = null, $parallelRestart = false)
+    {
+        $restart = new Jazsl_Server_RestartPhp($this->_getConfig()->zcsm);
+        if($serverID){
+            $restart->setServers(array($serverID));
+        } elseif($parallelRestart){
+            $restart->setParallelRestart(true);
+        }
+        $serversList = $restart->request($this->_getJazslAuth());
+        $this->_getServerListTable($serversList);
+    }
 }
