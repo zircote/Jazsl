@@ -49,14 +49,20 @@ implements Zend_Tool_Framework_Provider_Pretendable
         $loader->registerNamespace(array('Jazsl_'));
     }
     /**
-     *
+     * @throws Zend_Tool_Framework_Action_Exception
      * @returns Zend_Config
      */
     protected function _getConfig ()
     {
-        return $this->_registry->getConfig()->jazsl->__get(
+        $config = $this->_registry->getConfig()->jazsl->__get(
             $this->getZendserver()
         );
+        if(!$config) {
+            throw new Zend_Tool_Framework_Action_Exception(
+                'Specified Api Key does not exist.'
+            );
+        }
+        return $config;
     }
     protected function _getJazslAuth ()
     {
@@ -80,7 +86,7 @@ implements Zend_Tool_Framework_Provider_Pretendable
      *
      * @param Jazsl_Response_ServersList | Jazsl_Response_ErrorData $serversList
      */
-    protected function _getServerListTable ($serversList)
+    protected function _getFromServerList ($serversList)
     {
         if($serversList instanceof Jazsl_Response_ErrorData){
             /* @var $serversList Jazsl_Response_ErrorData */
@@ -106,13 +112,47 @@ implements Zend_Tool_Framework_Provider_Pretendable
                     );
                 }
                 $this->_registry->getResponse()->appendContent(
-                    'Cluster Members:', array('color' => 'cyan')
+                    'Cluster Members for key: ',
+                    array('color' => 'cyan', 'separator' => false)
+                );
+                $this->_registry->getResponse()->appendContent(
+                    $this->_getConfig()->keyname . '@'. $this->getZcsm(), array('color' => 'yellow')
                 );
                 $this->_registry->getResponse()->appendContent(
                     (string) $table, array('color' => 'green')
                 );
             }
         }
+    }
+    protected function _getFromServerInfo($server)
+    {
+        $table = new Zend_Text_Table(
+            array('columnWidths' => array(10, 15, 15, 60))
+        );
+        $table->appendRow(
+            array('Server ID', 'Status', 'Instance-Name', 'URI')
+        );
+            /* @var $uri Zend_Uri_Http */
+        $uri = $server->getAddress(true);
+        $table->appendRow(
+            array($server->getId(), $server->getStatus(),
+            $server->getName(), (string) $uri->getHost())
+        );
+        $this->_registry->getResponse()->appendContent(
+            'Server Info: ',
+            array('color' => 'cyan', 'separator' => false)
+        );
+        $this->_registry->getResponse()->appendContent(
+            $this->_getConfig()->keyname . '@'. $this->getZcsm(), array('color' => 'yellow')
+        );
+        $this->_registry->getResponse()->appendContent(
+            (string) $table, array('color' => 'green')
+        );
+    }
+    protected function getZcsm()
+    {
+        $uri = Zend_Uri_Http::fromString($this->_getConfig()->zcsm);
+        return $uri->getHost();
     }
 	/**
      * @return the $_serverName

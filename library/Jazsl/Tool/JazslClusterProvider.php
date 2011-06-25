@@ -100,11 +100,29 @@ class Jazsl_Tool_JazslClusterProvider extends Jazsl_Tool_JazslProviderAbstract
     {
         $this->setZendserver($zendserver);
         $serversList = $this->_getServerStatus();
-        $this->_getServerListTable($serversList);
+        $this->_getFromServerList($serversList);
     }
-    public function addServer($zendserver, $name, $url, $passwd,
+    /**
+     *
+     * Enter description here ...
+     * @param string $zendserver
+     * @param string $name
+     * @param string $url
+     * @param string $password
+     * @param string $settingsPropagate
+     * @param string $doRestart
+     */
+    public function addServer($zendserver, $name, $url, $password = false,
     $settingsPropagate = 'false', $doRestart = 'false')
     {
+//        print_r(func_get_args()); exit;
+        if(!$password){
+            $password = $this->_registry->getClient()
+                ->promptInteractiveInput(
+                    'please enter the GUI password for this server'
+                );
+            $password = $password->getContent();
+        }
         $this->setZendserver($zendserver);
         $addServer = new Jazsl_Cluster_AddServer($this->_getConfig()->zcsm);
         $addServer->setServerName($name)
@@ -113,9 +131,14 @@ class Jazsl_Tool_JazslClusterProvider extends Jazsl_Tool_JazslProviderAbstract
             ->setPropagateSettings($settingsPropagate)
             ->setDoRestart($doRestart);
         $data = $addServer->request($this->_getJazslAuth());
-        print_r($data);
+        $this->_getFromServerInfo($data);
     }
-    public function removeServer($zendserver,$serverID,$forceRemove = 'false')
+    /**
+     *
+     * @param unknown_type $zendserver
+     * @param unknown_type $serverID
+     */
+    public function removeServer($zendserver, $serverID, $forceRemove = 'false')
     {
         $this->setZendserver($zendserver);
         $removeServer = new Jazsl_Cluster_RemoveServer(
@@ -124,7 +147,13 @@ class Jazsl_Tool_JazslClusterProvider extends Jazsl_Tool_JazslProviderAbstract
         $removeServer->setServerId($serverID)
             ->setForce($forceRemove);
         $data = $removeServer->request($this->_getJazslAuth());
+        $this->_getFromServerInfo($data);
     }
+    /**
+     *
+     * @param unknown_type $zendserver
+     * @param unknown_type $serverID
+     */
     public function enableServer($zendserver,$serverID)
     {
         $this->setZendserver($zendserver);
@@ -133,8 +162,14 @@ class Jazsl_Tool_JazslClusterProvider extends Jazsl_Tool_JazslProviderAbstract
         );
         $data = $enableServer->setServerId($serverID)
             ->request($this->_getJazslAuth());
+        $this->_getFromServerInfo($data);
     }
-    public function disableServer($zendserver)
+    /**
+     *
+     * @param unknown_type $zendserver
+     * @param unknown_type $serverID
+     */
+    public function disableServer($zendserver, $serverID)
     {
         $this->setZendserver($zendserver);
         $disableServer = new Jazsl_Cluster_DisableServer(
@@ -142,5 +177,6 @@ class Jazsl_Tool_JazslClusterProvider extends Jazsl_Tool_JazslProviderAbstract
         );
         $data = $disableServer->setServerId($serverID)
             ->request($this->_getJazslAuth());
+        $this->_getFromServerInfo($data);
     }
 }

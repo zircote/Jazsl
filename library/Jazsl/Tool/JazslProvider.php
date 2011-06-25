@@ -40,7 +40,7 @@ class Jazsl_Tool_JazslProvider extends Jazsl_Tool_JazslProviderAbstract
      * @param string $keyname
      * @throws Exception
      */
-    public function addZendServer($servername, $url, $keyname, $apikey)
+    public function addServerKey($servername, $url, $keyname, $apikey)
     {
         $uri = Zend_Uri_Http::fromString($url);
         if(!in_array($uri->getPath(), array('/ZendServer','/ZendServerManager'))
@@ -68,5 +68,24 @@ class Jazsl_Tool_JazslProvider extends Jazsl_Tool_JazslProviderAbstract
         }
         $config->jazsl = $x;
         $config->save();
+    }
+    public function removeServerKey($servername)
+    {
+        $resp = $this->_registry->getClient()->promptInteractiveInput(
+            sprintf(
+                'Are you certain you wish to remove key [%s]? yes/no',
+                $servername
+            )
+        );
+        if(strtolower($resp->getContent()) != 'yes'){
+            return;
+        }
+        $config = $this->_registry->getConfig();
+        unset($config->jazsl->$servername);
+        $config->save();
+        $this->_registry->getResponse()->appendContent(
+            sprintf('key [%s] was removed', $servername),
+            array('color' => 'yellow')
+        );
     }
 }

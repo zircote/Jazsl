@@ -46,7 +46,7 @@ class Jazsl_Tool_JazslServerProvider extends Jazsl_Tool_JazslProviderAbstract
      *
      * @param Jazsl_Response_ServersList | Jazsl_Response_ErrorData $serversList
      */
-    protected function _getServerListTable ($serversList)
+    protected function _getFromServerList ($serversList)
     {
         if($serversList instanceof Jazsl_Response_ErrorData){
             /* @var $serversList Jazsl_Response_ErrorData */
@@ -92,7 +92,7 @@ class Jazsl_Tool_JazslServerProvider extends Jazsl_Tool_JazslProviderAbstract
     {
         $this->setZendserver($zendserver);
         $serversList = $this->_getServerStatus();
-        $this->_getServerListTable($serversList);
+        $this->_getFromServerList($serversList);
     }
     /**
      * parallelRestart: how the servers will be restarted parallel|series
@@ -115,7 +115,7 @@ class Jazsl_Tool_JazslServerProvider extends Jazsl_Tool_JazslProviderAbstract
             $restart->setParallelRestart(true);
         }
         $serversList = $restart->request($this->_getJazslAuth());
-        $this->_getServerListTable($serversList);
+        $this->_getFromServerList($serversList);
     }
     /**
      * returns generals informations regarding the server queried
