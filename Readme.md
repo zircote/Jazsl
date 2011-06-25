@@ -9,7 +9,7 @@ It provides access to API methods:
 * Complete documentation
 
 ### Jazsl_Tool
-[Jazsl_Tool](Tool.md) 
+[Jazsl_Tool](https://github.com/zircote/Jazsl/blob/master/Tool.md) 
 
 ### Cluster Manger Methods
 * clusterAddServer
