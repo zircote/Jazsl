@@ -36,19 +36,22 @@ implements Zend_Tool_Framework_Provider_Pretendable
 
     /**
      *
-     * @var Zend_Config
-     */
-    protected $_config;
-    /**
-     *
      * @var string
      */
     protected $_zendserver;
+    /**
+     * (non-PHPdoc)
+     * @see Zend_Tool_Project_Provider_Abstract::initialize()
+     */
     public function initialize ()
     {
         $loader = Zend_Loader_Autoloader::getInstance();
         $loader->registerNamespace(array('Jazsl_'));
     }
+    /**
+     *
+     * @returns Zend_Config
+     */
     protected function _getConfig ()
     {
         return $this->_registry->getConfig()->jazsl->__get(

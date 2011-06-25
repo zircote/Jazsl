@@ -33,22 +33,25 @@ class Jazsl_Tool_JazslProvider extends Jazsl_Tool_JazslProviderAbstract
 {
     /**
      *
-     * @var Zend_Config
+     * @param string $zendserver
+     * @param string $servername
+     * @param string $url
+     * @param string $apikey
+     * @param string $keyname
+     * @throws Exception
      */
-    protected $_config;
-    public function initialize ()
+    public function addZendServer($servername, $url, $keyname, $apikey)
     {
-        $loader = Zend_Loader_Autoloader::getInstance();
-        $loader->registerNamespace(array('Jazsl_'));
-    }
-    protected function _getConfig ()
-    {
-        return $this->_registry->getConfig()->jazsl;
-    }
-
-    public function addZendServer($zendserver, $servername, $url, $apikey, $keyname)
-    {
-        $this->setZendserver($zendserver);
+        $uri = Zend_Uri_Http::fromString($url);
+        if(!in_array($uri->getPath(), array('/ZendServer','/ZendServerManager'))
+        || !$uri->valid()){
+            throw new Exception(
+                sprintf(
+                    '[%s] does not appear to be a Zend Server or Zend Server '.
+                    'Manager Url', $url
+                )
+            );
+        }
         $_config = array(
             $servername => array(
                 'zcsm' => $url,

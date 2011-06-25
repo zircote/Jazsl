@@ -68,7 +68,8 @@ class Jazsl_Tool_JazslServerProvider extends Jazsl_Tool_JazslProviderAbstract
                     $uri = $server->getAddress(true);
                     $table->appendRow(
                         array($server->getId(), $server->getStatus(),
-                        $server->getName(), (string) $uri->getHost())
+                        $server->getName(), ($uri instanceof Zend_Uri_Http) ?
+                        (string) $uri->getHost() : $uri)
                     );
                 }
                 $this->_registry->getResponse()->appendContent(
@@ -130,7 +131,13 @@ class Jazsl_Tool_JazslServerProvider extends Jazsl_Tool_JazslProviderAbstract
 //        $systemInfo->setServerId();
         /* @var Jazsl_Response_SystemInfo $data */
         $data = $systemInfo->request($this->_getJazslAuth());
-
+        if($data instanceof Jazsl_Response_ErrorData){
+            $this->_registry->getResponse()->appendContent(
+                'Error ['.$data->getErrorMessage().']',
+                array('color' => 'red')
+            );
+            return;
+        }
         $this->_registry->getResponse()->appendContent(
             'Server Info ['.$serverUri->getHost().']', array('color' => 'green')
         );

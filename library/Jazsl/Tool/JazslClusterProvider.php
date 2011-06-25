@@ -24,8 +24,8 @@ require_once ('Jazsl/Tool/JazslProviderAbstract.php');
  * @version    Release: @package_version@
  * @link       http://pear.zircote.com/
  * <code>
- * zf enable config.provider Jazsl_Tool_JazslProvider
- * zf create config
+ * zf enable config.provider Jazsl_Tool_JazslClusterProvider
+ * zf get-server <zendConfigName>
  * zf ? jazsl
  * </code>
  */
@@ -102,24 +102,45 @@ class Jazsl_Tool_JazslClusterProvider extends Jazsl_Tool_JazslProviderAbstract
         $serversList = $this->_getServerStatus();
         $this->_getServerListTable($serversList);
     }
-    public function addServer($zendserver)
+    public function addServer($zendserver, $name, $url, $passwd,
+    $settingsPropagate = 'false', $doRestart = 'false')
     {
         $this->setZendserver($zendserver);
-
+        $addServer = new Jazsl_Cluster_AddServer($this->_getConfig()->zcsm);
+        $addServer->setServerName($name)
+            ->setServerUrl($url)
+            ->setGuiPassword($password)
+            ->setPropagateSettings($settingsPropagate)
+            ->setDoRestart($doRestart);
+        $data = $addServer->request($this->_getJazslAuth());
+        print_r($data);
     }
-    public function removeServer($zendserver)
+    public function removeServer($zendserver,$serverID,$forceRemove = 'false')
     {
         $this->setZendserver($zendserver);
-
+        $removeServer = new Jazsl_Cluster_RemoveServer(
+            $this->_getConfig()->zcsm
+        );
+        $removeServer->setServerId($serverID)
+            ->setForce($forceRemove);
+        $data = $removeServer->request($this->_getJazslAuth());
     }
-    public function enableServer($zendserver)
+    public function enableServer($zendserver,$serverID)
     {
         $this->setZendserver($zendserver);
-
+        $enableServer = new Jazsl_Cluster_EnableServer(
+            $this->_getConfig()->zcsm
+        );
+        $data = $enableServer->setServerId($serverID)
+            ->request($this->_getJazslAuth());
     }
     public function disableServer($zendserver)
     {
         $this->setZendserver($zendserver);
-
+        $disableServer = new Jazsl_Cluster_DisableServer(
+            $this->_getConfig()->zcsm
+        );
+        $data = $disableServer->setServerId($serverID)
+            ->request($this->_getJazslAuth());
     }
 }

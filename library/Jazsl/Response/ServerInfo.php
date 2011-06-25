@@ -45,7 +45,7 @@ class Jazsl_Response_ServerInfo
      */
     public function getAddress ($asUri = false)
     {
-        if($asUri){
+        if($asUri && $this->_address){
             require_once 'Zend/Uri/Http.php';
             return Zend_Uri_Http::fromString($this->_address);
         }
