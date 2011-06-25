@@ -29,9 +29,9 @@ The CLI interface based on Zend Framework Tool.
     basicloader.classes.0 = "Jazsl_Tool_JazslProvider"
     basicloader.classes.1 = "Jazsl_Tool_JazslServerProvider"
     basicloader.classes.2 = "Jazsl_Tool_JazslClusterProvider"
-    jazsl.rmhub.zcsm = "https://10.0.0.12:10082/ZendServerManager"
-    jazsl.rmhub.apikey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    jazsl.rmhub.keyname = "key_full"
+    jazsl.zcsm.zcsm = "https://10.0.0.12:10082/ZendServerManager"
+    jazsl.zcsm.apikey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    jazsl.zcsm.keyname = "key_full"
 
 
 # Jazsl
