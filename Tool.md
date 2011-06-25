@@ -46,7 +46,7 @@ The CLI interface based on Zend Framework Tool.
 # JazslServer
 
 `zf cluster-status jazsl-server zendserver`
-* `zendserver` the identifying name for the key-set/host
+* `zendserver` the identifying name for the key-set/host`
 
 `zf restart-php jazsl-server zendserver server-id parallel-restart[=false]`
 * `zendserver` the identifying name for the key-set/host
