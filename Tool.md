@@ -13,6 +13,7 @@ The CLI interface based on Zend Framework Tool.
     zf enable config.provider Jazsl_Tool_JazslServerProvider
     zf enable config.provider Jazsl_Tool_JazslClusterProvider
     
+## ~/.zf.ini
     php.include_path = ".:/usr/local/zend/share/pear"
     basicloader.classes.0 = "Jazsl_Tool_JazslProvider"
     basicloader.classes.1 = "Jazsl_Tool_JazslServerProvider"
@@ -21,8 +22,9 @@ The CLI interface based on Zend Framework Tool.
 
 
 
-    zf add-server-key jazsl zcsm https://10.0.0.12:10082/ZendServerManager key_full xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    
+`zf add-server-key jazsl zcsm https://10.0.0.12:10082/ZendServerManager key_full xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+
+## ~/.zf.ini
     php.include_path = ".:/usr/local/zend/share/pear"
     basicloader.classes.0 = "Jazsl_Tool_JazslProvider"
     basicloader.classes.1 = "Jazsl_Tool_JazslServerProvider"
