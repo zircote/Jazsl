@@ -8,23 +8,15 @@ class Jazsl_Server_GetSystemInfo extends Jazsl_RequestAbstract
     protected $_httpPath = '/Api/getSystemInfo';
     /**
      *
-     * @var int
-     */
-    protected $_serverId;
-    /**
-     *
      * @param Jazsl_Auth $auth
      */
     public function request (Jazsl_Auth $auth)
     {
         $this->_setHeaders();
         $auth->signRequest($this->getHttpClient());
-        if (null === $this->_serverId) {
-            throw new Exception('serverId must be set');
-        }
-        $this->_response = $this->getHttpClient()->request(Zend_Http_Client::POST);
+        $this->_response = $this->getHttpClient()->request(Zend_Http_Client::GET);
         if (300 > $this->_response->getStatus()) {
-            return new Jazsl_Response_ServerInfo(
+            return new Jazsl_Response_SystemInfo(
                 $this->_response->getBody()
             );
         } else {
@@ -33,4 +25,14 @@ class Jazsl_Server_GetSystemInfo extends Jazsl_RequestAbstract
             );
         }
     }
+	/**
+     * @param string $_httpPath
+     * @return Jazsl_Server_GetSystemInfo
+     */
+    public function setHttpPath ($_httpPath)
+    {
+        $this->_httpPath = $_httpPath;
+        return $this;
+    }
+
 }

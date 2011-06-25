@@ -42,6 +42,7 @@ class Jazsl_RequestAbstract
      */
     public function __construct ($zendServer = 'https://localhost:10082/ZendServerManager')
     {
+
         if (is_string($zendServer) && (! Zend_Uri_Http::check($zendServer))) {
             throw new Exception('invalid uri');
         }
