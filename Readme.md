@@ -7,9 +7,9 @@ It provides access to API methods:
 ## Todo
 * Finish Unit Tests
 * Complete documentation
-* Add to CI Server
-* Add to pear.zircote.com
-* Add Zend_Tool_Provider
+
+### Jazsl_Tool
+[Jazsl_Tool](Tool.md) 
 
 ### Cluster Manger Methods
 * clusterAddServer

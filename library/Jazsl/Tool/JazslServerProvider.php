@@ -105,7 +105,7 @@ class Jazsl_Tool_JazslServerProvider extends Jazsl_Tool_JazslProviderAbstract
      * @param int|null $serverID
      * @param true|false $parallelRestart
      */
-    public function restartPhp ($zendserver, $serverID = null, $parallelRestart = false)
+    public function restartPhp ($zendserver, $serverID = null, $parallelRestart = 'false')
     {
         $this->setZendserver($zendserver);
         $restart = new Jazsl_Server_RestartPhp($this->_getConfig()->zcsm);

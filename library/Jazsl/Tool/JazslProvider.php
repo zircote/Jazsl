@@ -34,13 +34,13 @@ class Jazsl_Tool_JazslProvider extends Jazsl_Tool_JazslProviderAbstract
     /**
      *
      * @param string $zendserver
-     * @param string $servername
+     * @param string $zendserver
      * @param string $url
      * @param string $apikey
      * @param string $keyname
      * @throws Exception
      */
-    public function addServerKey($servername, $url, $keyname, $apikey)
+    public function addServerKey($zendserver, $url, $keyname, $apikey)
     {
         $uri = Zend_Uri_Http::fromString($url);
         if(!in_array($uri->getPath(), array('/ZendServer','/ZendServerManager'))
@@ -53,7 +53,7 @@ class Jazsl_Tool_JazslProvider extends Jazsl_Tool_JazslProviderAbstract
             );
         }
         $_config = array(
-            $servername => array(
+            $zendserver => array(
                 'zcsm' => $url,
                 'apikey' => $apikey,
                 'keyname' => $keyname
@@ -69,22 +69,22 @@ class Jazsl_Tool_JazslProvider extends Jazsl_Tool_JazslProviderAbstract
         $config->jazsl = $x;
         $config->save();
     }
-    public function removeServerKey($servername)
+    public function removeServerKey($zendserver)
     {
         $resp = $this->_registry->getClient()->promptInteractiveInput(
             sprintf(
                 'Are you certain you wish to remove key [%s]? yes/no',
-                $servername
+                $zendserver
             )
         );
         if(strtolower($resp->getContent()) != 'yes'){
             return;
         }
         $config = $this->_registry->getConfig();
-        unset($config->jazsl->$servername);
+        unset($config->jazsl->$zendserver);
         $config->save();
         $this->_registry->getResponse()->appendContent(
-            sprintf('key [%s] was removed', $servername),
+            sprintf('key [%s] was removed', $zendserver),
             array('color' => 'yellow')
         );
     }
