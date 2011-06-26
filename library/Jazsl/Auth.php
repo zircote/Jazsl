@@ -56,7 +56,7 @@ class Jazsl_Auth
     public function getDate ()
     {
         if (null === $this->_date) {
-            $this->_date = gmdate(self::DATE_FORMAT);
+            $this->setDate();
         }
         return $this->_date;
     }
@@ -65,8 +65,7 @@ class Jazsl_Auth
      */
     public function setDate ()
     {
-        $this->_date = null;
-        $this->getDate();
+        $this->_date = gmdate(self::DATE_FORMAT);
         return $this;
     }
     /**
