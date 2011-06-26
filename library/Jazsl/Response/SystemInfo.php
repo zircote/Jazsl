@@ -77,6 +77,7 @@ class Jazsl_Response_SystemInfo
         $this->_managerLicenseInfo = new Jazsl_Response_LicenseInfo(
             $xml->managerLicenseInfo
         );
+        $this->_messageList = new Jazsl_Response_MessageList($xml->messageList);
     }
     protected function _setApiVersion (SimpleXMLElement $supportedApiVersions)
     {
