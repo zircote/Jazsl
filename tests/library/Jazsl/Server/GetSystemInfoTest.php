@@ -67,6 +67,7 @@ class Jazsl_Server_GetSystemInfoTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($out->getOperatingSystem());
         $this->assertNotEmpty($out->getPhpVersion());
         $this->assertNotEmpty($out->getStatus());
+        $this->assertNotEmpty($out->getZendServerVersion());
         $this->assertNotEmpty($out->getSupportedApiVersions());
         $this->assertArrayHasKey(0, $out->getSupportedApiVersions());
     }
