@@ -7,24 +7,17 @@ The CLI interface based on Zend Framework Tool.
     pear channel-discover pear.zfcampus.org
     pear channel-discover pear.zircote.com
     pear install zfcampus/zf
-    pear install zircote/Jzasl-Alpha
+    pear install zircote/Jazsl-Alpha
     zf create config
     zf enable config.provider Jazsl_Tool_JazslProvider
     zf enable config.provider Jazsl_Tool_JazslServerProvider
     zf enable config.provider Jazsl_Tool_JazslClusterProvider
-    
-## ~/.zf.ini
-    php.include_path = ".:/usr/local/zend/share/pear"
-    basicloader.classes.0 = "Jazsl_Tool_JazslProvider"
-    basicloader.classes.1 = "Jazsl_Tool_JazslServerProvider"
-    basicloader.classes.2 = "Jazsl_Tool_JazslClusterProvider"
+    zf add-server-key jazsl zcsm https://10.0.0.12:10082/ZendServerManager key_full xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-
-
-
-`zf add-server-key jazsl zcsm https://10.0.0.12:10082/ZendServerManager key_full xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 ## ~/.zf.ini
+Your configuration should resemble:
+
     php.include_path = ".:/usr/local/zend/share/pear"
     basicloader.classes.0 = "Jazsl_Tool_JazslProvider"
     basicloader.classes.1 = "Jazsl_Tool_JazslServerProvider"
