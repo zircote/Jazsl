@@ -14,8 +14,8 @@ class Jazsl_Response_ErrorDataTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp ()
     {
-        $this->Jazsl_Response_ErrorData =
-            new Jazsl_Response_ErrorData(/* parameters */);
+//        $this->Jazsl_Response_ErrorData =
+//            new Jazsl_Response_ErrorData(/* parameters */);
     }
     /**
      * Cleans up the environment after running a test.

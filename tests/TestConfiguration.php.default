@@ -4,5 +4,8 @@
  * Example Test Configuration Template
  *
  **/
-define('TESTS_ZEND_FRAMEWORK_INCLUDE_PATH','/usr/local/zend/share/ZendFramework/library');
-define('TESTS_GENERATE_REPORT', true);
+define('DEFAULT_API_NAME','READ_ONLY');
+define('DEFAULT_API_KEY','e8355558f59d8d...58ebe10635f4089b');
+define('DEFAULT_ZSCM_URI','https://10.0.0.1:10082/ZendServerManager');
+define('API_NAME','FULL_ACCESS');
+define('API_KEY','29d3a2efeeb87ef2...4b135bfdfda02d42ad129');

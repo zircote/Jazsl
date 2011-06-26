@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zendServerAPIResponse xmlns="http://www.zend.com/server/api/1.0">
+    <requestData>
+        <apiKeyName><![CDATA[rmhub_full]]></apiKeyName>
+        <method>clusterGetServerStatus</method>
+    </requestData>
+    <responseData>
+        <serversList>
+            <serverInfo>
+                <id>25</id>
+                <name>i-07982f69</name>
+                <address>https://ec2-10-0-0-10-compute-1.amazonaws.com:10082/ZendServer
+                </address>
+                <status>OK</status>
+                <messageList>
+                    <error>This is a error mesage.</error>
+                    <warning>This is a warning mesage.</warning>
+                    <info>This is a info mesage.</info>
+                </messageList>
+            </serverInfo>
+            <serverInfo>
+                <id>28</id>
+                <name>i-2576524b</name>
+                <address>https://ec2-10-0-0-11-compute-1.amazonaws.com:10082/ZendServer
+                </address>
+                <status>OK</status>
+                <messageList>
+                    <error>This is a error mesage.</error>
+                    <warning>This is a warning mesage.</warning>
+                    <info>This is a info mesage.</info>
+                </messageList>
+            </serverInfo>
+            <serverInfo>
+                <id>31</id>
+                <name>i-2e988b6a</name>
+                <address>https://ec2-10-0-0-12.us-west-1-compute.amazonaws.com:10082/ZendServer
+                </address>
+                <status>OK</status>
+                <messageList>
+                    <error>This is a error mesage.</error>
+                    <warning>This is a warning mesage.</warning>
+                    <info>This is a info mesage.</info>
+                </messageList>
+            </serverInfo>
+        </serversList>
+    </responseData>
+</zendServerAPIResponse>

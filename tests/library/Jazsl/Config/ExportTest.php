@@ -39,6 +39,7 @@ class Jazsl_Config_ExportTest extends PHPUnit_Framework_TestCase
      */
     public function testRequest ()
     {
+        $this->markTestIncomplete();
         $this->Jazsl_Config_Export->request(
             $this->Jazsl_Auth
         );

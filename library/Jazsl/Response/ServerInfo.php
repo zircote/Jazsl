@@ -18,10 +18,10 @@ class Jazsl_Response_ServerInfo
             }
             $xml = $xml->responseData->serverInfo;
         }
-        $this->_id = (string) $xml->id;
-        $this->_name = (string) $xml->name;
-        $this->_address = (string) $xml->address;
-        $this->_status = (string) $xml->status;
+        $this->_id = (integer) $xml->id;
+        $this->_name = trim((string) $xml->name);
+        $this->_address = trim((string) $xml->address);
+        $this->_status = trim((string) $xml->status);
         $this->_messageList = new Jazsl_Response_MessageList(
             $xml->messageList
         );

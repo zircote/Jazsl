@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><zendServerAPIResponse xmlns="http://www.zend.com/server/api/1.0">
+        <requestData>
+                <apiKeyName><![CDATA[rmhub_full]]></apiKeyName>
+                <method>getSystemInfo</method>
+        </requestData>
+        <responseData>
+                <systemInfo>
+                        <status>OK</status>
+                        <edition>ZendServerClusterManager</edition>
+                        <zendServerVersion>5.1.0</zendServerVersion>
+                        <supportedApiVersions>
+                                application/vnd.zend.serverapi+xml;version=1.0
+                        </supportedApiVersions>
+                        <phpVersion>5.2.17</phpVersion>
+                        <operatingSystem>Linux</operatingSystem>
+                        <serverLicenseInfo>
+                                <status>OK</status>
+                                <orderNumber>US-00168-11</orderNumber>
+                                <validUntil>Tue, 20 May 2014 00:00:00 GMT</validUntil>
+                                <nodeLimit>0</nodeLimit>
+                        </serverLicenseInfo>
+                        <managerLicenseInfo>
+                                <status>OK</status>
+                                <orderNumber>US-00168-11</orderNumber>
+                                <validUntil>Tue, 20 May 2014 00:00:00 GMT</validUntil>
+                                <nodeLimit>255</nodeLimit>
+                        </managerLicenseInfo>
+                        <messageList>
+                            <error>This is a error mesage.</error>
+                            <warning>This is a warning mesage.</warning>
+                            <info>This is a info mesage.</info>
+                        </messageList>
+                </systemInfo>   </responseData>
+</zendServerAPIResponse>

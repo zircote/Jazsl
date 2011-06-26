@@ -40,6 +40,7 @@ class Jazsl_Cluster_RemoveServerTest extends PHPUnit_Framework_TestCase
      */
     public function testRequest ()
     {
+        $this->markTestIncomplete();
         $this->Jazsl_Cluster_RemoveServer->request(
             $this->Jazsl_Auth
         );

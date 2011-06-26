@@ -14,8 +14,8 @@ class Jazsl_Response_ServersListTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp ()
     {
-        $this->Jazsl_Response_ServersList =
-            new Jazsl_Response_ServersList(/* parameters */);
+//        $this->Jazsl_Response_ServersList =
+//            new Jazsl_Response_ServersList(/* parameters */);
     }
     /**
      * Cleans up the environment after running a test.

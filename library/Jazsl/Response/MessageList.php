@@ -10,13 +10,13 @@ class Jazsl_Response_MessageList
             $xml = simplexml_load_string($xml);
         }
         foreach ($xml->error as $error) {
-            $this->_error[] = (string) $error;
+            $this->_error[] = trim((string) $error);
         }
         foreach ($xml->warning as $warning) {
-            $this->_warning[] = (string) $warning;
+            $this->_warning[] = trim((string) $warning);
         }
         foreach ($xml->info as $info) {
-            $this->_info[] = (string) $info;
+            $this->_info[] = trim((string) $info);
         }
     }
     /**

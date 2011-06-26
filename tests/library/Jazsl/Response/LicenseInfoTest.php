@@ -14,8 +14,8 @@ class Jazsl_Response_LicenseInfoTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp ()
     {
-        $this->Jazsl_Response_LicenseInfo =
-            new Jazsl_Response_LicenseInfo(/* parameters */);
+//        $this->Jazsl_Response_LicenseInfo =
+//            new Jazsl_Response_LicenseInfo(/* parameters */);
     }
     /**
      * Cleans up the environment after running a test.

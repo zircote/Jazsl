@@ -15,7 +15,10 @@
  * limitations under the License.
  */
 
-
+define(
+    'TESTS_FIXTURES_DIR',
+    realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'fixtures/Jazsl/')
+);
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(dirname(__FILE__) . '/../library'),
     get_include_path(),

@@ -8,10 +8,10 @@ class Jazsl_Response_LicenseInfo
 
     public function __construct ($xml)
     {
-        $this->_status = (string) $xml->status;
-        $this->_orderNumber = (string) $xml->orderNumber;
-        $this->_validUntil = (string) $xml->validUntil;
-        $this->_serverLimit = (string) $xml->serverLimit;
+        $this->_status = trim((string) $xml->status);
+        $this->_orderNumber = trim((string) $xml->orderNumber);
+        $this->_validUntil = trim((string) $xml->validUntil);
+        $this->_serverLimit = trim((string) $xml->serverLimit);
     }
     /**
      * @return the $_status

@@ -14,8 +14,8 @@ class Jazsl_Response_MessageListTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp ()
     {
-        $this->Jazsl_Response_MessageList =
-            new Jazsl_Response_MessageList(/* parameters */);
+//        $this->Jazsl_Response_MessageList =
+//            new Jazsl_Response_MessageList(/* parameters */);
     }
     /**
      * Cleans up the environment after running a test.

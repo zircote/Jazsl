@@ -14,8 +14,8 @@ class Jazsl_Response_ServerInfoTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp ()
     {
-        $this->Jazsl_Response_ServerInfo =
-            new Jazsl_Response_ServerInfo(/* parameters */);
+//        $this->Jazsl_Response_ServerInfo =
+//            new Jazsl_Response_ServerInfo(/* parameters */);
     }
     /**
      * Cleans up the environment after running a test.

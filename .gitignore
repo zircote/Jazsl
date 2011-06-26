@@ -12,5 +12,4 @@ package.xml
 .DS_Store
 build/.DS_Store
 tests/TestConfiguration.php
-
 scripts

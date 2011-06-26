@@ -39,6 +39,7 @@ class Jazsl_Cluster_DisableServerTest extends PHPUnit_Framework_TestCase
      */
     public function testSetServer ()
     {
+        $this->markTestIncomplete();
         $this->markTestIncomplete("setServer test not implemented");
         $this->Jazsl_Cluster_DisableServer->setServer(/* parameters */);
     }
@@ -48,6 +49,7 @@ class Jazsl_Cluster_DisableServerTest extends PHPUnit_Framework_TestCase
      */
     public function testRequest ()
     {
+        $this->markTestIncomplete();
         $this->Jazsl_Cluster_DisableServer->setServer(3);
         $this->Jazsl_Cluster_DisableServer->request(
             $this->Jazsl_Auth
