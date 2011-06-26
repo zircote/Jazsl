@@ -18,7 +18,7 @@ class Jazsl_Response_ServerInfo
             }
             $xml = $xml->responseData->serverInfo;
         }
-        $this->_id = (integer) $xml->id;
+        $this->_id = (string) $xml->id;
         $this->_name = trim((string) $xml->name);
         $this->_address = trim((string) $xml->address);
         $this->_status = trim((string) $xml->status);
